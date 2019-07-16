@@ -60,6 +60,7 @@ class TrackHistory extends React.Component {
             this.props.navigation.navigate({
               routeName: 'TrackExecutive',
               params: {
+                id:it.logId,
                 ...it,
               },
             })

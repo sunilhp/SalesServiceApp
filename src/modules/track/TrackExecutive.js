@@ -1,253 +1,166 @@
 import React from "react";
 import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Platform,
-  PermissionsAndroid
+StyleSheet,
+View,
+Text,
+TouchableOpacity,
+Platform,
+PermissionsAndroid
 } from "react-native";
 import MapView, {
-  Marker,
-  AnimatedRegion,
-  Polyline,
-  PROVIDER_GOOGLE
+Marker,
+AnimatedRegion,
+Polyline,
+PROVIDER_GOOGLE
 } from "react-native-maps";
 import haversine from "haversine";
 import C from '../../../Constants';
 import SyncStorage from 'sync-storage';
+import axios from 'axios'
 
-// const LATITUDE = 29.95539;
-// const LONGITUDE = 78.07513;
 const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
-const LATITUDE = 30.7168168;
-const LONGITUDE = 76.7776352;
 var i=0;
+var firstndlast = 0;
+
 class TrackExecutive extends React.Component {
-  constructor(props) {
-    super(props);
-    CancelTrackResponse = 0;
-    this.state = {
-      latitude: LATITUDE,
-      longitude: LONGITUDE,
-      routeCoordinates: [],
-      distanceTravelled: 0,
-      prevLatLng: {},
-      coordinate: new AnimatedRegion({
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: 0,
-        longitudeDelta: 0
-      })
-    };
-  }
+constructor(props) {
+super(props);
 
-  getCoordinates() {
-    fetch(`${C.API}/track/5d0332b8745d4b5a39e58f91`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Authorization':'Bearer '+SyncStorage.get('LOGIN_DETAILS'),
-        'Content-Type': 'application/json',
-      }//,
-      //body: JSON.stringify(""),
-      })
-      .then((response) => response.json())
-      .then(this._parseResponse)
-      .catch(err => {console.warn("error is "+err) })
-      .done();
-  }
+this.state = {
+mapCoords:[],
+lat:"",
+long:"",
+};
+}
 
-  _parseResponse = (response) => {
-      this.CancelTrackResponse = setInterval(this.trackResponse(response),10000)
-    }
-   
-  trackResponse = (response) =>{
-    const { coordinate } = this.state;
-    const { routeCoordinates, distanceTravelled } = this.state;
+getCoordinates = async () => {
+//${this.props.navigation.state.params.id}
+try {
+const res = await axios.get(`${C.API}/track/5d29bcbd765651707b10b184`,{headers:{ Authorization: 'Bearer '+SyncStorage.get('LOGIN_DETAILS')}})
+if (res.data.success) 
+{ 
+let tmp = res.data.data;
+let mapCoords = [];
+for(let i=0;i<tmp.length;i++)
+{
+var temp ={};
+temp.latitude = tmp[i].lat;
+temp.longitude = tmp[i].long;
+mapCoords.push(temp);
+if(i==0)
+this.setState({lat:temp.latitude,long:temp.longitude})
+}
+ if(tmp.length>0)
+ this.setState({ mapCoords:mapCoords });
+else{
+Toast.show("No route found...");
+this.props.navigation.goBack();
+}
+}
+} catch (e) {
+console.warn("error: ",e)
+}
+}
 
-    let resp = response.data;
-    if(i<resp.length)
-    { 
-      let lat,long
-      lat = (resp[i].lat) -0; 
-      long= (resp[i].long) -0;
+componentDidMount() {
+this.getCoordinates() ;
+}
 
 
-      const newCoordinate = {
-        latitude:lat,
-        longitude:long
-      };
-      console.warn("new Coordinates",{ newCoordinate });
-      
-      coordinate.timing(newCoordinate).start();
-     
-      this.setState({
-        lat,
-        long,
-        routeCoordinates: routeCoordinates.concat([newCoordinate]),
-        distanceTravelled:
-          distanceTravelled + this.calcDistance(newCoordinate),
-        prevLatLng: newCoordinate
-      });
+getMapRegion = () => ({
+latitude: this.state.lat,
+longitude: this.state.long,
+latitudeDelta: LATITUDE_DELTA,
+longitudeDelta: LONGITUDE_DELTA
+});
 
-      i = i+5;
-      }
-      else   clearInterval(this.CancelTrackResponse);
-  }
+calcDistance = newLatLng => {
+const { prevLatLng } = this.state;
+return haversine(prevLatLng, newLatLng) || 0;
+};
 
-  componentDidMount() {
-    const { coordinate } = this.state;
+render() {
+return (
+<View style={styles.container}>
+<MapView
+style={styles.map}
+provider={PROVIDER_GOOGLE}
+showUserLocation
+followUserLocation
+loadingEnabled
+region={this.getMapRegion()}
+>
 
+<Polyline 
+coordinates={this.state.mapCoords} 
+strokeWidth={7} 
+strokeColor="#3498DB" 
+/>
 
-    this.getCoordinates() ;
-
-
-
-
-  //  this.requestCameraPermission();
-
-  //   this.watchID = navigator.geolocation.watchPosition(
-  //     position => {
-  //       const { routeCoordinates, distanceTravelled } = this.state;
-  //       const { latitude, longitude } = position.coords;
-        
-  //       const newCoordinate = {
-  //         latitude,
-  //         longitude
-  //       };
-  //       console.warn("new Coordinates",{ newCoordinate });
-
-  //       if (Platform.OS === "android") {
-  //         if (this.marker) {
-  //           this.marker._component.animateMarkerToCoordinate(
-  //             newCoordinate,
-  //             500
-  //           );
-  //         }
-  //       } else {
-  //         coordinate.timing(newCoordinate).start();
-  //       }
-
-  //       this.setState({
-  //         latitude,
-  //         longitude,
-  //         routeCoordinates: routeCoordinates.concat([newCoordinate]),
-  //         distanceTravelled:
-  //           distanceTravelled + this.calcDistance(newCoordinate),
-  //         prevLatLng: newCoordinate
-  //       });
-  //     },
-  //     error => console.warn("Error: ",error),
-  //     {
-  //       enableHighAccuracy: true,
-  //       timeout: 5000,
-  //       maximumAge: 1000,
-  //       distanceFilter: 10
-  //     }
-  //   );
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  getMapRegion = () => ({
-    latitude: this.state.latitude,
-    longitude: this.state.longitude,
-    latitudeDelta: LATITUDE_DELTA,
-    longitudeDelta: LONGITUDE_DELTA
-  });
-
-  calcDistance = newLatLng => {
-    const { prevLatLng } = this.state;
-    return haversine(prevLatLng, newLatLng) || 0;
-  };
-
-  requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: "Location Access Permission",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the camera");
-      } else {
-        console.log("Camera permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <MapView
-          style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          showUserLocation
-          followUserLocation
-          loadingEnabled
-          region={this.getMapRegion()}
-        >
-          <Polyline coordinates={this.state.routeCoordinates} strokeWidth={5} />
-          <Marker.Animated
-            ref={marker => {
-              this.marker = marker;
-            }}
-            coordinate={this.state.coordinate}
-          />
-        </MapView>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.bubble, styles.button]}>
-            <Text style={styles.bottomBarContent}>
-              {parseFloat(this.state.distanceTravelled).toFixed(2)} km
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
+{
+this.state.mapCoords.map((loc)=>{
+const longitude = loc.longitude - 0;
+const latitude = loc.latitude -0;
+if(firstndlast == 0 || firstndlast == (this.state.mapCoords.length-1))
+{
+return (
+<View>
+<MapView.Marker
+key = {firstndlast++}
+coordinate ={{longitude,latitude}}
+>
+</MapView.Marker>
+</View>
+);
+}
+firstndlast++;
+})
+}
+</MapView>
+{/* <View style={styles.buttonContainer}>
+<TouchableOpacity style={[styles.bubble, styles.button]}>
+<Text style={styles.bottomBarContent}>
+{parseFloat(this.state.distanceTravelled).toFixed(2)} km
+</Text>
+</TouchableOpacity>
+</View> */}
+</View>
+);
+}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
-    alignItems: "center"
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject
-  },
-  bubble: {
-    flex: 1,
-    backgroundColor: "rgba(255,255,255,0.7)",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
-  },
-  latlng: {
-    width: 200,
-    alignItems: "stretch"
-  },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: "center",
-    marginHorizontal: 10
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    marginVertical: 20,
-    backgroundColor: "transparent"
-  }
+container: {
+...StyleSheet.absoluteFillObject,
+justifyContent: "flex-end",
+alignItems: "center"
+},
+map: {
+...StyleSheet.absoluteFillObject
+},
+bubble: {
+flex: 1,
+backgroundColor: "rgba(255,255,255,0.7)",
+paddingHorizontal: 18,
+paddingVertical: 12,
+borderRadius: 20
+},
+latlng: {
+width: 200,
+alignItems: "stretch"
+},
+button: {
+width: 80,
+paddingHorizontal: 12,
+alignItems: "center",
+marginHorizontal: 10
+},
+buttonContainer: {
+flexDirection: "row",
+marginVertical: 20,
+backgroundColor: "transparent"
+}
 });
 
 export default TrackExecutive;
