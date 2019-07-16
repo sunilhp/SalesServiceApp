@@ -102,6 +102,19 @@ class ServiceHistory extends React.Component {
           <Text style={styles.itemTwoSubTitle}>{it.assigned_to_name}</Text>
           <Text style={styles.itemTwoSubTitle}>{it.assigned_to_phone},  {it.assigned_to_email}</Text>
           <Text style={styles.remarkTitle}>Remark : {it.executive_remark}</Text>
+          <Button
+              style={{ alignSelf: 'stretch', marginBottom: 10}}
+                caption={ 'Track Route'}
+                onPress={() =>
+                  this.props.navigation.navigate({
+                    routeName: 'TrackExecutive',
+                    params: {
+                      id:it.id,
+                      ...it,
+                    },
+                  })
+                  }
+            />
           {this.renderServiceHistoryCarousel(it.images)}
         </View>
       )
@@ -119,7 +132,6 @@ class ServiceHistory extends React.Component {
 
   render() {
     const itemParams = this.props.navigation.state.params;
-
     // service images formatter
     const formattedimages = [];
     for(i=0;i<itemParams.images.length;i++)
@@ -268,11 +280,9 @@ class ServiceHistory extends React.Component {
         <View style={styles.componentsSection}>
         <Text style={styles.componentSectionHeader}>History</Text>
         <View style={styles.row}>
-        <TouchableOpacity key={itemParams.id} style={styles.itemTwoContainer} > 
-          <View>
+        <View key={itemParams.id} style={styles.itemTwoContainer} > 
             {this.renderServiceHistoryInformation()}
-          </View>
-        </TouchableOpacity>
+        </View>
       </View>
       </View>
         

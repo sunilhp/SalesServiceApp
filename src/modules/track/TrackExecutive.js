@@ -17,6 +17,7 @@ import haversine from "haversine";
 import C from '../../../Constants';
 import SyncStorage from 'sync-storage';
 import axios from 'axios'
+import Toast from 'react-native-simple-toast'
 
 const LATITUDE_DELTA = 0.009;
 const LONGITUDE_DELTA = 0.009;
@@ -36,8 +37,9 @@ long:"",
 
 getCoordinates = async () => {
 //${this.props.navigation.state.params.id}
+//5d29bcbd765651707b10b184
 try {
-const res = await axios.get(`${C.API}/track/5d29bcbd765651707b10b184`,{headers:{ Authorization: 'Bearer '+SyncStorage.get('LOGIN_DETAILS')}})
+const res = await axios.get(`${C.API}/track/${this.props.navigation.state.params.id}`,{headers:{ Authorization: 'Bearer '+SyncStorage.get('LOGIN_DETAILS')}})
 if (res.data.success) 
 { 
 let tmp = res.data.data;
