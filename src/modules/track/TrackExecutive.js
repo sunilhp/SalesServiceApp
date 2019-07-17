@@ -18,7 +18,7 @@ import C from '../../../Constants';
 import SyncStorage from 'sync-storage';
 import axios from 'axios'
 import Toast from 'react-native-simple-toast';
-//import car_icon from '../../Images/car-icon.png'
+import car_icon from '../../Images/car-icon.png'
 
 const LATITUDE_DELTA = 0.0029;
 const LONGITUDE_DELTA = 0.0029;
@@ -138,15 +138,16 @@ render() {
 
                 <MapView.Marker
                 key = {firstmarker++}
-                //title="Start Point"
+                title="Start Point"
                 coordinate={firstCoords}
                 >
                 </MapView.Marker>
 
                 <MapView.Marker
                 key = {lastmarker++}
-                //title="Last Point"
+                title="Last Point"
                 coordinate ={lastCoords}
+                image={car_icon}
                 >
                 </MapView.Marker>
                 {/* {
