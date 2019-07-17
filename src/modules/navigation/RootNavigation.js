@@ -4,22 +4,9 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 
-import GalleryScreen from '../gallery/GalleryViewContainer';
 
-// To use this screens please see the full version at https://reactnativestarter.com
-// import ProfileScreen from '../containers/ProfileScreen';
-// import ArticleScreen from '../containers/ArticleScreen';
-// import ChatScreen from '../containers/chat/ChatScreen';
-// import MessagesScreen from '../containers/chat/MessagesScreen';
-// import ChartsScreen from '../containers/ChartsScreen';
-
-import ProfileScreen from '../profile/ProfileViewContainer';
-import ArticleScreen from '../article/ArticleViewContainer';
 import ServiceDetailScreen from '../services/ServiceDetailViewContainer';
 import LeadDetailScreen from '../leads/LeadDetailViewContainer';
-import ChatScreen from '../chat/ChatViewContainer';
-import MessagesScreen from '../chat/MessagesViewContainer';
-import ChartsScreen from '../charts/ChartsViewContainer';
 import AuthScreen from '../auth/AuthViewContainer';
 import UsersScreen from '../users/UsersViewContainer';
 import UsersAddScreen from '../users/UsersAdd';
@@ -63,12 +50,6 @@ const stackNavigator = createStackNavigator(
         ),
       }),
     },
-    Profile: {
-      screen: ProfileScreen,
-      navigationOptions: {
-        title: 'Profile',
-      },
-    },
     Roles: {
       screen: RolesScreen,
       navigationOptions: {
@@ -81,40 +62,10 @@ const stackNavigator = createStackNavigator(
         title: 'Track Detail',
       },
     },
-    Gallery: {
-      screen: GalleryScreen,
-      navigationOptions: {
-        title: 'Gallery',
-      },
-    },
-    Article: {
-      screen: ArticleScreen,
-      navigationOptions: {
-        title: 'Article',
-      },
-    },
     Track: {
       screen: TrackDetailScreen,
       navigationOptions: {
         title: 'Track',
-      },
-    },
-    Chat: {
-      screen: ChatScreen,
-      navigationOptions: {
-        title: 'Customers',
-      },
-    },
-    Messages: {
-      screen: MessagesScreen,
-      navigationOptions: {
-        title: 'Messages',
-      },
-    },
-    Charts: {
-      screen: ChartsScreen,
-      navigationOptions: {
-        title: 'Charts',
       },
     },
     Auth: {

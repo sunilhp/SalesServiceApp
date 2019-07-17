@@ -78,7 +78,6 @@ navtitle =()=>{
 }
   componentWillMount() {
     this.navtitle();
-
     if(this.state.parameters)
     {
       if(this.state.parameters.status == true)

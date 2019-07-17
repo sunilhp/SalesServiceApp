@@ -98,7 +98,7 @@ export default function ManageScreen(props) {
       </View>
 
 
-      <View style={styles.row}>
+      {/* <View style={styles.row}>
         <TouchableOpacity
             onPress={() => props.navigation.navigate({ routeName: 'Complaint' })}
             style={styles.item}
@@ -110,84 +110,7 @@ export default function ManageScreen(props) {
           />
           <Text style={styles.itemText}>Complaints</Text>
         </TouchableOpacity>
-      </View>
-     
-{/* 
-
-      <View style={styles.row}>
-
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Services' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={chatIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Services</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Calendar' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={calendarIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Machines</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Auth' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={profileIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.row}>
-
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Charts' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={chatIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Services</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Calendar' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={calendarIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Machines</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => props.navigation.navigate({ routeName: 'Auth' })}
-          style={styles.item}
-        >
-          <Image
-            resizeMode="contain"
-            source={profileIcon}
-            style={styles.itemImage}
-          />
-          <Text style={styles.itemText}>Login</Text>
-        </TouchableOpacity>
-      </View>
-    
-     */}
+      </View> */}
     </View>
   );
 }

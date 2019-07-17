@@ -8,8 +8,8 @@ import { colors, fonts } from '../../styles';
 import HomeScreen from '../home/HomeViewContainer';
 import CalendarScreen from '../calendar/CalendarViewContainer';
 import ManageScreen from '../manage/ManageViewContainer';
-import ComponentsScreen from '../components/ComponentsViewContainer';
 
+import complaintsScreen from '../complaints/ComplaintViewContainer';
 import ServicesScreen from '../services/ServicesViewContainer';
 import LeadsScreen from '../leads/LeadsViewContainer';
 const iconHome = require('../../../assets/images/tabbar/home.png');
@@ -66,23 +66,17 @@ export default createBottomTabNavigator(
         header: null,
       },
     },
-    Reminders: {
-      screen: CalendarScreen,
-      navigationOptions: {
-        header: (
-          <View style={styles.headerContainer}>
-            <Image style={styles.headerImage} source={headerBackground} />
-            <Text style={styles.headerCaption}>Reminders</Text>
-          </View>
-        ),
-      },
-    },
-    Service: {
-      screen: ServicesScreen,
-      navigationOptions: {
-        headerTitle:"Services"
-      }
-    },
+    // Reminders: {
+    //   screen: CalendarScreen,
+    //   navigationOptions: {
+    //     header: (
+    //       <View style={styles.headerContainer}>
+    //         <Image style={styles.headerImage} source={headerBackground} />
+    //         <Text style={styles.headerCaption}>Reminders</Text>
+    //       </View>
+    //     ),
+    //   },
+    // },
     Leads: {
       screen: LeadsScreen,
       navigationOptions: {
@@ -93,6 +87,23 @@ export default createBottomTabNavigator(
           </View>
         ),
       },
+    },
+    Complaints: {
+      screen: complaintsScreen,
+      navigationOptions: {
+        header: (
+          <View style={styles.headerContainer}>
+            <Image style={styles.headerImage} source={headerBackground} />
+            <Text style={styles.headerCaption}>Complaints</Text>
+          </View>
+        ),
+      },
+    },
+    Service: {
+      screen: ServicesScreen,
+      navigationOptions: {
+        headerTitle:"Services"
+      }
     },
     Manage: {
       screen: ManageScreen,
@@ -105,17 +116,6 @@ export default createBottomTabNavigator(
         )
       },
     },
-    // Settings: {
-    //   screen: ComponentsScreen,
-    //   navigationOptions: {
-    //     header: (
-    //       <View style={styles.headerContainer}>
-    //         <Image style={styles.headerImage} source={headerBackground} />
-    //         <Text style={styles.headerCaption}>Components</Text>
-    //       </View>
-    //     ),
-    //   },
-    // },
     },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -128,7 +128,10 @@ export default createBottomTabNavigator(
           case 'Home':
             iconSource = iconHome;
             break;
-          case 'Reminders':
+          // case 'Reminders':
+          //   iconSource = iconCalendar;
+          //   break;
+          case 'Complaints':
             iconSource = iconCalendar;
             break;
           case 'Service':

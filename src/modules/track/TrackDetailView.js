@@ -51,9 +51,9 @@ class TrackHistory extends React.Component {
   //service history 
   renderServiceHistoryInformation = () => {
     const jobdetails = this.state.jobdetails;
-    console.warn(jobdetails)
     return jobdetails.map((it, i) => {
       return (
+        <View style={styles.row}>
         <TouchableOpacity
           style={styles.itemTwoContainer}
           onPress={() =>
@@ -80,6 +80,7 @@ class TrackHistory extends React.Component {
         <Text style={styles.itemTwoSubTitle}>{it.address.city},  {it.address.email}</Text>
         </View>
         </TouchableOpacity>
+        </View>
       )
     })
   }
@@ -94,7 +95,7 @@ class TrackHistory extends React.Component {
         {/* Service history view */}
         <View style={styles.componentsSection}>
         <Text style={styles.componentSectionHeader}>Active Executives</Text>
-        <View style={styles.row}>
+        <View>
           {this.renderServiceHistoryInformation()}
         </View>
       </View>

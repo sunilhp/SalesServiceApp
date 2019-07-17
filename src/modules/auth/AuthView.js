@@ -43,7 +43,7 @@ export default class AuthScreen extends React.Component {
 
   componentWillMount() {
 
-    this.setState({username:"sunil@webhopers.in",password:"1234"})
+    this.setState({username:"amarjeet1@gmail.com",password:"1234"})
 
     this.keyboardDidShowListener = Keyboard.addListener(
       Platform.select({ android: 'keyboardDidShow', ios: 'keyboardWillShow' }),

@@ -17,15 +17,15 @@ function ServiceTypeScreen(props) {
   const _renderItem = ({ item }) => (
     
     <TouchableOpacity
-      onPress={() =>
-        props.navigation.navigate({
-          routeName: 'ServiceTypeAdd',
-          params: {
-            title: item.userName,
-            ...item,
-          },
-        })
-      }
+      // onPress={() =>
+      //   props.navigation.navigate({
+      //     routeName: 'ServiceTypeAdd',
+      //     params: {
+      //       title: item.userName,
+      //       ...item,
+      //     },
+      //   })
+      // }
     >
       <View style={styles.messageItem}>
         <View style={{ flex: 1, paddingLeft: 15 }}>
