@@ -57,7 +57,9 @@ class UserViewContainer extends React.Component {
         const users = messagesList;
         this.setState({ users, isRefreshing: false })
     }
-
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
     render() {
         if (this.state.isLoading) 
             return null
@@ -65,6 +67,8 @@ class UserViewContainer extends React.Component {
             users={this.state.users} 
             isRefreshing={this.state.isRefreshing}
             getUsers={this.getUsers}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }

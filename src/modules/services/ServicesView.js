@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   Alert,
+  TextInput
 } from 'react-native';
 import { colors, fonts } from '../../styles';
 import { RadioGroup, GridRow } from '../../common';
@@ -74,6 +75,12 @@ _getRenderServiceItemFunction = () =>[this.RenderRow,this.RenderRow,this.RenderR
      let groupedData =
      this.props.tabIndex === 0 ? this.props.services.unassigned_service_data : this.props.tabIndex === 1 ? this.props.services.new_service_data : this.props.tabIndex === 2 ? this.props.services.progress_service_data : this.props.tabIndex === 3 ? this.props.services.pending_service_data : this.props.services.completed_service_data ;
 
+     if (this.props.searchText) {
+      groupedData = groupedData.filter(
+        message => (message.customerName.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1) || (message.customerCity.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1) 
+        || (message.customerState.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1)
+      );
+    }
     return (
       
       <View style={styles.container}>
@@ -85,6 +92,15 @@ _getRenderServiceItemFunction = () =>[this.RenderRow,this.RenderRow,this.RenderR
             underline
           />
         </View>
+        <TextInput
+        style={styles.searchBox}
+        type="bordered"
+        placeholder="Search"
+        placeholderTextColor={colors.lightGray}
+        dark
+        value={this.props.searchText}
+        onChangeText={value => this.props.setSearchText(value)}
+      />
         <FlatList
           keyExtractor={item =>
             item.id
@@ -104,6 +120,13 @@ _getRenderServiceItemFunction = () =>[this.RenderRow,this.RenderRow,this.RenderR
 }
 
 const styles = StyleSheet.create({
+  searchBox:{
+   flexDirection: 'row',
+   height:30,
+   borderWidth:1,
+   paddingLeft:5,
+   borderColor:colors.lightGray
+  },
   container: {
     flex: 1,
     backgroundColor: colors.white,

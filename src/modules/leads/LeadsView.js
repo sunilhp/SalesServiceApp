@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   Alert,
+  TextInput
 } from 'react-native'
 import { colors, fonts } from '../../styles'
 import { RadioGroup, GridRow } from '../../common'
@@ -59,7 +60,13 @@ class LeadsScreen extends React.Component{
     // const groupedData = this.props.messagesList;
      let groupedData =
        this.props.tabIndex === 0 ? this.props.leads.unassignedLeads : this.props.tabIndex === 1 ? this.props.leads.newLeads : this.props.tabIndex === 2 ? this.props.leads.inProgressLeads : this.props.tabIndex === 3 ? this.props.leads.deadLeads : this.props.tabIndex === 4 ? this.props.leads.dealDoneLeads : this.props.leads.completedLeads;
-      
+       
+      if (this.props.searchText) {
+        groupedData = groupedData.filter(
+          message => (message.name.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1) || (message.city.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1) 
+          || (message.state.toLowerCase().indexOf(this.props.searchText.toLowerCase()) !== -1)
+        );
+      }
     
     return (
       
@@ -72,6 +79,15 @@ class LeadsScreen extends React.Component{
             underline
           />
         </View>
+        <TextInput
+        style={styles.searchBox}
+        type="bordered"
+        placeholder="Search"
+        placeholderTextColor={colors.lightGray}
+        dark
+        value={this.props.searchText}
+        onChangeText={value => this.props.setSearchText(value)}
+      />  
         <FlatList
           keyExtractor={item =>
             item.id
@@ -91,6 +107,13 @@ class LeadsScreen extends React.Component{
 }
 
 const styles = StyleSheet.create({
+  searchBox:{
+    flexDirection: 'row',
+    height:30,
+    borderWidth:1,
+    paddingLeft:5,
+    borderColor:colors.lightGray
+   },
   container: {
     flex: 1,
     backgroundColor: colors.white,

@@ -66,14 +66,14 @@ function ServiceTypeScreen(props) {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      {/* <TextInput
         type="bordered"
         placeholder="Search"
         placeholderTextColor={colors.lightGray}
         dark
         value={props.searchText}
         onChangeText={value => props.setSearchText(value)}
-      />
+      /> */}
       <FlatList
         style={{ backgroundColor: colors.white }}
         refreshing={props.isRefreshing}

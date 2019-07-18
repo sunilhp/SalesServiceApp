@@ -751,6 +751,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4314495C22E0389E006D3D18 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		4327022022BDFE26001B7C94 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -896,6 +903,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				4314495C22E0389E006D3D18 /* New Group */,
 				13B07FAE1A68108700A75B9A /* SalesServiceApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* SalesServiceAppTests */,
@@ -1782,7 +1790,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.AmarSalesServiceApp;
 				PRODUCT_NAME = SalesServiceApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1814,7 +1822,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.AmarSalesServiceApp;
 				PRODUCT_NAME = SalesServiceApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -6,7 +6,7 @@ import CustomerView from './CustomerView';
 class CustomerViewContainer extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { customers: [], isRefreshing: false}
+        this.state = { customers: [], isRefreshing: false,searchText:''}
     }
 
     componentDidMount() {
@@ -58,6 +58,9 @@ class CustomerViewContainer extends React.Component {
         this.setState({ customers, isRefreshing: false })
     }
 
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
     render() {
         if (this.state.isLoading) 
             return null
@@ -65,6 +68,8 @@ class CustomerViewContainer extends React.Component {
             customers={this.state.customers} 
             isRefreshing={this.state.isRefreshing}
             getCustomers={this.getCustomers}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }

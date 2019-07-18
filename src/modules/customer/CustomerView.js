@@ -11,9 +11,10 @@ import { colors } from '../../styles';
 import { TextInput } from '../../common';
 import { Text, Caption, Title } from '../../common/StyledText';
 import { withNavigation } from 'react-navigation';
+import { getStoredState } from 'redux-persist/es/integration/getStoredStateMigrateV4';
 
 function CustomerScreen(props) {
- 
+
   const _renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() =>
@@ -72,7 +73,7 @@ function CustomerScreen(props) {
         type="bordered"
         placeholder="Search"
         placeholderTextColor={colors.lightGray}
-        dark
+        dark 
         value={props.searchText}
         onChangeText={value => props.setSearchText(value)}
       />

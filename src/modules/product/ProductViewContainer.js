@@ -57,7 +57,9 @@ class ProductViewContainer extends React.Component {
         const product = messagesList;
         this.setState({ product, isRefreshing: false })
     }
-
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
     render() {
         if (this.state.isLoading) 
             return null
@@ -65,6 +67,8 @@ class ProductViewContainer extends React.Component {
             product={this.state.product} 
             isRefreshing={this.state.isRefreshing}
             getProducts={this.getProducts}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }

@@ -73,8 +73,10 @@ class LeadsViewContainer extends React.Component {
     changeTabIndex = (index) => {
         this.setState({ tabIndex: index })
     }
-
-
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
+    
     render() {
         if (this.state.isLoading) 
             return null
@@ -85,6 +87,8 @@ class LeadsViewContainer extends React.Component {
             tabs={['Unassigned','New', 'In Progress','Dead', 'Deal Done' ,'Completed' ]} 
             changeTabIndex={this.changeTabIndex}
             getLeads={this.getLeads}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }

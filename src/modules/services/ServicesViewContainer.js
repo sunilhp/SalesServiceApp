@@ -59,6 +59,7 @@ class ServicesViewContainer extends React.Component {
        tmp.customerId = serviceresp[i].customer.id;
        tmp.customerName = serviceresp[i].customer.name;
        tmp.customerCity = serviceresp[i].customer.city;
+       tmp.customerState = serviceresp[i].customer.state;
        tmp.customeservicereSptate = serviceresp[i].customer.state;
        tmp.customerEmail = serviceresp[i].customer.email;
        tmp.customerPhone = serviceresp[i].customer.phone;
@@ -85,7 +86,9 @@ class ServicesViewContainer extends React.Component {
         this.setState({ tabIndex: index })
     }
 
-
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
     render() {
         if (this.state.isLoading) 
             return null
@@ -96,6 +99,8 @@ class ServicesViewContainer extends React.Component {
             tabs={['Unassigned','New', 'In Progress','Pending', 'Completed' ]} 
             changeTabIndex={this.changeTabIndex}
             getServices={this.getServices}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }

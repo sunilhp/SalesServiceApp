@@ -54,7 +54,9 @@ class ComplaintViewContainer extends React.Component {
         const complaints = messagesList;
         this.setState({ complaints, isRefreshing: false })
     }
-
+    setSearchText = (val) => {
+        this.setState({searchText :val})
+    }
     render() {
         if (this.state.isLoading) 
             return null
@@ -62,6 +64,8 @@ class ComplaintViewContainer extends React.Component {
             complaints={this.state.complaints} 
             isRefreshing={this.state.isRefreshing}
             getComplaints={this.getComplaints}
+            searchText = {this.state.searchText}
+            setSearchText = {this.setSearchText}
             />
     }
 }
