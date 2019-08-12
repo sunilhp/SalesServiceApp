@@ -1,4 +1,4 @@
-// @flow
+// @flow 
 import { compose, withState } from 'recompose';
 import { connect } from 'react-redux';
 
