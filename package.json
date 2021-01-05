@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@exponent/react-native-action-sheet": "^0.3.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "expo": "^33.0.7",
     "form-data": "^2.5.0",
     "haversine": "^1.1.1",
